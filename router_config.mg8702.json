@@ -1,0 +1,92 @@
+{
+  "_comment_1": "Motorola MG8702 (Model MT8733-30) — DOCSIS 3.1 modem + AX6000 router.",
+  "_comment_2": "Rename to router_config.json after filling in password. chmod 600 immediately.",
+  "_comment_3": "Fill in 'password' with your NEW admin password after rotating the one you accidentally shared.",
+
+  "make": "Motorola",
+  "model": "MG8702",
+  "router_ip": "192.168.0.1",
+
+  "login_url": "http://192.168.0.1/goform/login",
+  "login_data": {
+    "loginUsername": "admin",
+    "loginPassword": "PUT_YOUR_NEW_PASSWORD_HERE"
+  },
+
+  "pages": {
+    "firmware": "http://192.168.0.1/RgSwInfo.asp",
+    "modem_status": "http://192.168.0.1/RgSwInfo.asp",
+    "connected_devices": "http://192.168.0.1/RgConnect.asp",
+    "lan_status": "http://192.168.0.1/RgDhcp.asp",
+    "wifi_basic": "http://192.168.0.1/wlanRadio.asp",
+    "wifi_security": "http://192.168.0.1/wlanPrimaryNetwork.asp",
+    "wifi_guest": "http://192.168.0.1/wlanGuestNetwork.asp",
+    "wifi_advanced": "http://192.168.0.1/wlanAdvanced.asp",
+    "wps_config": "http://192.168.0.1/wlanWps.asp",
+    "port_forwarding": "http://192.168.0.1/RgForwarding.asp",
+    "port_triggers": "http://192.168.0.1/RgPortTriggers.asp",
+    "dmz_host": "http://192.168.0.1/RgDmzHost.asp",
+    "upnp": "http://192.168.0.1/RgUPnP.asp",
+    "firewall": "http://192.168.0.1/RgFirewall.asp",
+    "remote_admin": "http://192.168.0.1/RgRemoteAccess.asp",
+    "parental_controls": "http://192.168.0.1/BasicParentalControl.asp"
+  },
+
+  "selectors": {
+    "firmware": {
+      "current_version":           "(?:Software Version|Firmware Version)[^<]*</[^>]+>\\s*<[^>]+>([0-9A-Za-z._-]+)",
+      "hardware_version":          "Hardware Version[^<]*</[^>]+>\\s*<[^>]+>([0-9A-Za-z._-]+)",
+      "model_number":              "Model[^<]*</[^>]+>\\s*<[^>]+>([0-9A-Za-z._-]+)",
+      "boot_code":                 "Boot Code Version[^<]*</[^>]+>\\s*<[^>]+>([0-9A-Za-z._-]+)"
+    },
+    "wifi_security": {
+      "ssid_24":                   "name=\"WlanSSID\"[^>]*value=\"([^\"]+)\"",
+      "auth_mode_24":              "name=\"WpaMode\"[^>]*>(?:[^<]*<option[^>]*selected[^>]*>([^<]+))?",
+      "encryption_24":             "name=\"WpaEncryption\"[^>]*>(?:[^<]*<option[^>]*selected[^>]*>([^<]+))?",
+      "ssid_broadcast":            "name=\"ClosedNetwork\"[^>]*value=\"(\\d+)\""
+    },
+    "wifi_guest": {
+      "guest_enabled":             "name=\"GuestEnable\"[^>]*value=\"(\\d+)\"",
+      "guest_ssid":                "name=\"GuestSSID\"[^>]*value=\"([^\"]+)\"",
+      "client_isolation":          "name=\"GuestIsolation\"[^>]*value=\"(\\d+)\""
+    },
+    "wps_config": {
+      "wps_enabled":               "name=\"WpsEnable\"[^>]*value=\"(\\d+)\"",
+      "wps_pin_method":            "name=\"WpsPin\"[^>]*value=\"(\\d+)\""
+    },
+    "upnp": {
+      "upnp_enabled":              "name=\"UPnPEnable\"[^>]*value=\"(\\d+)\""
+    },
+    "firewall": {
+      "firewall_level":            "name=\"FirewallLevel\"[^>]*>(?:[^<]*<option[^>]*selected[^>]*>([^<]+))?",
+      "ipv4_firewall":             "name=\"Ipv4Firewall\"[^>]*value=\"(\\d+)\"",
+      "ipv6_firewall":             "name=\"Ipv6Firewall\"[^>]*value=\"(\\d+)\""
+    },
+    "remote_admin": {
+      "remote_enabled":            "name=\"RemoteAccessEnable\"[^>]*value=\"(\\d+)\"",
+      "remote_port":               "name=\"RemoteAccessPort\"[^>]*value=\"(\\d+)\""
+    },
+    "dmz_host": {
+      "dmz_enabled":               "name=\"DmzEnable\"[^>]*value=\"(\\d+)\"",
+      "dmz_host_ip":               "name=\"DmzHost\"[^>]*value=\"([0-9.]+)\""
+    },
+    "port_forwarding": {
+      "rules_table_raw":           "(<table[^>]*id=\"portForwardTable\".*?</table>)"
+    },
+    "connected_devices": {
+      "client_table_raw":          "(<table[^>]*(?:id|class)=\"[^\"]*(?:Connected|Client)[^\"]*\".*?</table>)"
+    }
+  },
+
+  "_notes": {
+    "selectors_warning": "Motorola has changed page markup across firmware revisions. If a selector returns nothing, view-source on the page in your browser and adjust the regex. The auditor will still report 'page fetched, size N bytes' even when extraction fails — so partial failures are visible.",
+    "session_handling": "MG8702 sets a session cookie after POST to /goform/login. The auditor stores Set-Cookie automatically. If login fails, check that the password field name is 'loginPassword' on your firmware (some revisions use 'pwd').",
+    "high_value_findings": [
+      "remote_admin.remote_enabled = 1 → critical, admin reachable from internet",
+      "dmz_host.dmz_enabled = 1 → all WAN traffic forwarded to one LAN IP",
+      "wps_config.wps_enabled = 1 → WPS PIN brute force still viable",
+      "upnp.upnp_enabled = 1 → IoT/apps can silently open WAN ports (cross-check with the UPnP enumeration in the auditor's main router module)",
+      "firewall.firewall_level = 'Low' or 'Off' → obvious issue"
+    ]
+  }
+}
