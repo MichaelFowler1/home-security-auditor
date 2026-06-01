@@ -1,0 +1,32 @@
+{
+  "_comment": "Rename this file to router_config.json after filling it in. Tell Claude your router make/model and they'll generate a tuned version.",
+  "_warning": "Storing admin credentials in plaintext is a tradeoff. Make sure this file has restrictive permissions (chmod 600).",
+
+  "make": "ASUS",
+  "model": "RT-AX88U",
+  "router_ip": "192.168.1.1",
+
+  "login_url": "http://192.168.1.1/login.cgi",
+  "login_data": {
+    "username": "admin",
+    "password": "REPLACE_ME"
+  },
+
+  "pages": {
+    "firmware": "http://192.168.1.1/Advanced_FirmwareUpgrade_Content.asp",
+    "wifi": "http://192.168.1.1/Advanced_Wireless_Content.asp",
+    "port_forward": "http://192.168.1.1/Advanced_VirtualServer_Content.asp",
+    "clients": "http://192.168.1.1/Main_AdmStatus_Content.asp",
+    "wan": "http://192.168.1.1/Advanced_WAN_Content.asp"
+  },
+
+  "selectors": {
+    "firmware": {
+      "current_version": "Firmware Version[^<]*<[^>]*>([0-9.]+)"
+    },
+    "wifi": {
+      "ssid": "SSID[^<]*<[^>]*value=\"([^\"]+)\"",
+      "auth_method": "Authentication Method[^<]*<[^>]*>([^<]+)"
+    }
+  }
+}
