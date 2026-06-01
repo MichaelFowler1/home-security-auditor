@@ -122,7 +122,6 @@ security-auditor/
 
 ## Caveats
 
-- Only scan networks you own. You do, so this is fine — but the script doesn't enforce it.
 - First run will surprise you. Most home networks have 10-25 devices and a few you forgot about.
 - nmap vuln scripts produce false positives. The LLM is prompted to flag them; spot-check before acting.
 - UPnP enumeration only works if your router has UPnP enabled. If it's off (good!) you'll see 0 mappings.
