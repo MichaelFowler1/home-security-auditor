@@ -2,6 +2,10 @@
 
 Models how an attacker would actually compromise your home network and produces a kill-chain report with specific remediation. Read-only — never executes attacks, never changes settings.
 
+![Home network auditor: LAN map, kill chain, and report structure](docs/hero.png)
+
+*Illustrative view — device pivot tiers are pulled live from `modules/fingerprint.py`; the sample kill chain and report sections mirror the tool's real output. Regenerate with `python make_hero.py`.*
+
 ## What it does
 
 | Module | What it collects |
