@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "home-security-auditor"
+abstract: "Read-only home network security auditor for Windows + WSL2. Combines nmap, PowerShell host checks, router admin scraping, and credential exposure detection. Produces structured JSON findings and an optional GPT-5.5-generated kill-chain report with prioritized remediation. Personal use only — scan only networks you own."
+authors:
+  - family-names: "Fowler"
+    given-names: "Michael"
+    alias: "MichaelFowler1"
+repository-code: "https://github.com/MichaelFowler1/home-security-auditor"
+url: "https://github.com/MichaelFowler1/home-security-auditor"
+license: "Apache-2.0"
+date-released: "2026-06-01"
