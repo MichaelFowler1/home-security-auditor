@@ -1,0 +1,3 @@
+# Dependencies inferred from source imports.
+# Versions not pinned: no local virtualenv was found (this project runs on another host).
+matplotlib
