@@ -129,3 +129,15 @@ security-auditor/
 - First run will surprise you. Most home networks have 10-25 devices and a few you forgot about.
 - nmap vuln scripts produce false positives. The LLM is prompted to flag them; spot-check before acting.
 - UPnP enumeration only works if your router has UPnP enabled. If it's off (good!) you'll see 0 mappings.
+
+## License
+
+Everything in this repository from this change on is under the
+[PolyForm Noncommercial License 1.0.0](LICENSE). Earlier commits were released
+under the Apache License 2.0 and stay under it. In plain terms: it is free for
+any noncommercial purpose, and for schools and universities, public research
+organizations, government institutions and charities, whatever their funding.
+Commercial use needs a license from the author: ask through
+[the issue tracker](https://github.com/MichaelFowler1/home-security-auditor/issues). Anyone who
+passes on a copy has to pass on the license and the `Required Notice:` line in
+[NOTICE](NOTICE). This is a plain summary; the LICENSE file is what governs.

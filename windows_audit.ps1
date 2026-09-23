@@ -1,3 +1,6 @@
+# Copyright 2026 Michael Fowler
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
 # windows_audit.ps1
 # Collects Windows host security state and emits a single JSON document to stdout.
 # Invoked from WSL by security_audit.py via powershell.exe.
